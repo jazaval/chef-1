@@ -22,11 +22,14 @@ require "erubis"
 require "chef/knife/bootstrap/chef_vault_handler"
 require "chef/knife/bootstrap/client_builder"
 require "chef/util/path_helper"
+# require "license_acceptance/cli_flags/mixlib_cli"
+# require "license_acceptance/acceptor"
 
 class Chef
   class Knife
     class Bootstrap < Knife
       include DataBagSecretOptions
+      # include LicenseAcceptance::CLIFlags::MixlibCLI
 
       attr_accessor :client_builder
       attr_accessor :chef_vault_handler
@@ -351,6 +354,8 @@ class Chef
       end
 
       def run
+        # LicenseAcceptance::Acceptor.check_and_persist!("chef-client", Chef::VERSION.to_s, logger: Chef::Log)
+
         if @config[:first_boot_attributes] && @config[:first_boot_attributes_from_file]
           raise Chef::Exceptions::BootstrapCommandInputError
         end

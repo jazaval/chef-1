@@ -286,6 +286,7 @@ describe Chef::Knife::Bootstrap do
 
       context "when --json-attributes and --json-attribute-file were both passed" do
         it "raises a Chef::Exceptions::BootstrapCommandInputError with the proper error message" do
+          # expect(LicenseAcceptance::Acceptor).to receive(:check_and_persist!)
           knife.parse_options(["-j", '{"foo":{"bar":"baz"}}'])
           knife.parse_options(["--json-attribute-file", jsonfile.path])
           knife.merge_configs
@@ -744,12 +745,17 @@ describe Chef::Knife::Bootstrap do
   end
 
   it "verifies that a server to bootstrap was given as a command line arg" do
+    # expect(LicenseAcceptance::Acceptor).to receive(:check_and_persist!)
     knife.name_args = nil
     expect { knife.run }.to raise_error(SystemExit)
     expect(stderr.string).to match(/ERROR:.+FQDN or ip/)
   end
 
   describe "when running the bootstrap" do
+    before do
+      # expect(LicenseAcceptance::Acceptor).to receive(:check_and_persist!)
+    end
+
     let(:knife_ssh) do
       knife.name_args = ["foo.example.com"]
       knife.config[:chef_node_name] = "foo.example.com"
