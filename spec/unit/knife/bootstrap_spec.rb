@@ -43,6 +43,10 @@ describe Chef::Knife::Bootstrap do
 
   let(:bootstrap_cli_options) { [ ] }
 
+  it "should fail because knife bootstrap work to accept remote EULA is not complete" do
+    expect(true).to eq(false)
+  end
+
   it "should use chef-full as default template" do
     expect(knife.bootstrap_template).to be_a_kind_of(String)
     expect(File.basename(knife.bootstrap_template)).to eq("chef-full")
